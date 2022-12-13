@@ -1,0 +1,159 @@
+:root {
+  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+
+  color-scheme: light dark;
+  color: #fff;
+  background-color: #000;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+
+  --border-radius: 5px;
+  margin: 0;
+}
+
+body {
+  position: fixed;
+ 
+}
+
+.content {
+  position: fixed;
+  top: 0px;
+  margin-left: 90px;
+  padding-right: 20px;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.filters {
+  display: flex;
+}
+
+.filter-item {
+  margin-left: 10px;
+  height: 30px;
+  border-radius: var(--border-radius);
+  background-color: #FF7EC9;
+  align-items: center;
+  align-content: center;
+  display: flex;
+}
+
+input:first-of-type {
+  margin-left: 0px;
+}
+
+
+.search {
+  width: 600px;
+  border-radius: var(--border-radius);
+  margin-left: 0px;
+}
+
+.search:focus {
+  outline: none;
+}
+
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding: 4px;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  align-items: center;
+}
+
+select option {
+  background-color: #FF7EC9;
+  border:none;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  margin-top: 10px;
+}
+
+th {
+  background-color: #60014D;
+  height: 30px;
+  padding: 10px;
+  border: none;
+}
+
+th:first-of-type {
+  border-top-left-radius: var(--border-radius);
+}
+th:last-of-type {
+  border-top-right-radius: var(--border-radius);
+}
+tr:last-of-type td:first-of-type {
+  border-bottom-left-radius: var(--border-radius);
+}
+tr:last-of-type td:last-of-type {
+  border-bottom-right-radius: var(--border-radius);
+}
+
+td {
+  color: #000;
+  background-color: #d9d9d9;
+  padding: 10px;
+  border: none;
+  text-align: center;
+}
+
+
+h1 {
+  text-align: left;
+}
+
+input {
+  border: none;
+  background-color: #FF7EC9;
+}
+
+
+.add-button {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: red;
+  color: #fff;
+  font-size: 24px;
+  line-height: 50px;
+  text-align: center;
+  border: none;
+}
+
+.add-button:active {
+  background-color: brown;
+}
+
+.fa-plus {
+  margin: 0;
+}
+
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #fff;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: #fff;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: #fff;
+} 

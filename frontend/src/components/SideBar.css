@@ -1,0 +1,48 @@
+body {
+    width: 80px;
+    height: 100%;
+    background-color: #60014D;
+}
+
+.sidebar-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #60014D;
+}
+
+.active {
+    background-color: #FF7EC9;
+}
+
+.inactive {
+    background-color: #60014D;
+}
+
+.sidebar-list li {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    height: 80px;
+}
+
+.nav-text {
+    color: white;
+    width: 80px;
+    border: none;
+}
+
+.nav-text a {
+  color: white;
+  width: 95%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-text a svg {
+    width: 30%;
+    height: 30%;
+}
