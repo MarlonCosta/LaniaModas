@@ -1,6 +1,6 @@
 import {useState} from "react"
 import Modal from 'react-modal';
-import './Modals.css';
+import './NewClientModal.css';
 import {AiFillCheckCircle, AiOutlineClose} from "react-icons/all";
 
 interface NovoCliente {
@@ -62,36 +62,51 @@ export default function NewClientModal(props: any) {
                onRequestClose={handleClose}
                contentLabel="Cadastro de Cliente"
         >
-            <h2>Cadastrar cliente</h2>
+            <div className="modal-header">
+                <h2>Cadastrar cliente</h2>
+            </div>
             <form>
-                <div className="bloco info">
+                <div className="div1">
                     <label htmlFor="nome">Nome</label>
-                    <input type="text" id="nome" name="nome" onChange={handleChange} value={newClient.nome} required={true}/>
+                    <input type="text" id="nome" name="nome" onChange={handleChange} value={newClient.nome}
+                           required={true}/>
+                </div>
+                <div className="div2">
                     <label htmlFor="sobrenome">Sobrenome</label>
                     <input type="text" id="sobrenome" name="sobrenome" onChange={handleChange}
                            value={newClient.sobrenome} required={true}/>
+                </div>
+                <div className="div3">
                     <label htmlFor="apelido">Apelido</label>
                     <input type="text" id="apelido" name="apelido" onChange={handleChange} value={newClient.apelido}/>
-                    <label htmlFor="cpf">CPF</label>
-                    <input type="text" id="cpf" name="cpf" onChange={handleChange} value={newClient.cpf}/>
                 </div>
-
-                <div className="bloco contato">
+                <div className="div4">
                     <label htmlFor="endereco">Endereço</label>
                     <input type="text" id="endereco" name="endereco" onChange={handleChange}
                            value={newClient.endereco} required={true}/>
+                </div>
+                <div className="div5">
+                    <label htmlFor="debito">Débito existente</label>
+                    <input type="number" id="debito" name="debito" onChange={handleChange} value={newClient.debito}/>
+                </div>
+
+                <div className="div6">
+                    <label htmlFor="cpf">CPF</label>
+                    <input type="text" id="cpf" name="cpf" onChange={handleChange} value={newClient.cpf}/>
+                </div>
+                <div className="div7">
                     <label htmlFor="telefone">Telefone</label>
                     <input type="text" id="telefone" name="telefone" onChange={handleChange}
                            value={newClient.telefone}/>
+                </div>
+                <div className="div8">
                     <label htmlFor="email">Email</label>
                     <input type="text" id="email" name="email" onChange={handleChange} value={newClient.email}/>
                 </div>
 
-                <div className="bloco financeiro">
-                    <label htmlFor="debito">Débito existente</label>
-                    <input type="number" id="debito" name="debito" onChange={handleChange} value={newClient.debito}/>
+                <div className="div9">
+                    <button className="salvar" onClick={handleSave}>Salvar</button>
                 </div>
-                <button className="salvar" onClick={handleSave}><AiFillCheckCircle size={30}/>Salvar</button>
             </form>
             <button className="cancelar" onClick={handleClose}><AiOutlineClose size={25}/></button>
         </Modal>

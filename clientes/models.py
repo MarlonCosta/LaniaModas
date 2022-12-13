@@ -6,7 +6,8 @@ from django.db import models
 # Create your models here.
 class Cliente(models.Model):
     id: int = models.AutoField(primary_key=True)
-    cpf: str = models.CharField(unique=True, max_length=11, null=False, verbose_name="CPF")
+    cpf: str = models.CharField(unique=True, max_length=11, null=False, verbose_name="CPF",
+                                error_messages={'unique': "CPF já cadastrado"})
     nome: str = models.CharField(max_length=30, null=False)
     sobrenome: str = models.CharField(max_length=30, null=False)
     apelido: str = models.CharField(max_length=30)

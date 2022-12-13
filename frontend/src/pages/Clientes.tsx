@@ -2,8 +2,9 @@ import {useEffect, useState} from "react"
 import axios from "axios";
 import {FaPlus} from "react-icons/fa";
 import NewClientModal from "../components/NewClientModal";
+import EditClientModal from "../components/EditClientModal";
 
-interface Cliente {
+export interface Cliente {
     id: number;
     cpf: string;
     nome: string;
@@ -23,14 +24,30 @@ export default function Clientes() {
     const apiUrl = "http://127.0.0.1:8000/api/clientes/"
     const [search, setSearch] = useState('')
     const [clients, setClients] = useState<Cliente[]>([])
-    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [createModalIsOpen, setCreateModalIsOpen] = useState(false);
+    const [editModalIsOpen, setEditModalIsOpen] = useState(false);
+    const [selectedClient, setSelectedClient] = useState<Cliente>({
+        id: -1,
+        nome: '',
+        sobrenome: '',
+        apelido: '',
+        cpf: '',
+        debito: 0,
+        score: 0,
+        ultimaCompra: '',
+        ultimoPagamento: '',
+        endereco: '',
+        telefone: '',
+        email: ''
+    });
+
 
     useEffect(() => {
         axios.get(apiUrl)
             .then(response => setClients(response.data)) // update the clients state variable with the fetched data
     }, [])
 
-    const handleSubmit = (newClient: Cliente) => {
+    const handleClientCreation = (newClient: Cliente) => {
         axios.post(apiUrl, newClient)
             .then(response => {
                 const updatedClients = [...clients, response.data];
@@ -42,12 +59,38 @@ export default function Clientes() {
         setSearch(e.target.value)
     }
 
+    const handleClientEdit = (client: Cliente) => {
+        axios.put(apiUrl + client.id + '/', client)
+            .then(response => {
+                const updatedClients = [...clients];
+                const index = updatedClients.findIndex(c => c.id === client.id);
+                updatedClients[index] = response.data;
+                setClients(updatedClients);
+            });
+    }
+
+    const handleClientDeletion = (id: number) => {
+        console.log("deleting client with id: " + id);
+        axios.delete(apiUrl + id + '/')
+            .then(() => {
+                const updatedClients = clients.filter(c => c.id !== id);
+                setClients(updatedClients);
+            });
+    }
+
+    const handleTableRowClick = (client: Cliente) => {
+        console.log("clicked on client with id: ", client);
+        if (client) {
+            setSelectedClient(client);
+            setEditModalIsOpen(true);
+        }
+    }
+
     const filteredClients = clients.filter(client => {
         return client.nome.toLowerCase().includes(search.toLowerCase())
             || client.sobrenome.toLowerCase().includes(search.toLowerCase())
             || client.apelido.toLowerCase().includes(search.toLowerCase())
     })
-
 
     function paintScore(score: number): string {
         if (score >= 70) {
@@ -90,7 +133,7 @@ export default function Clientes() {
                 </thead>
                 <tbody>
                 {filteredClients.map(client => (
-                    <tr>
+                    <tr key={client.id} onClick={() => handleTableRowClick(client)}>
                         <td>{client.nome} {client.sobrenome} ({client.apelido})</td>
                         <td>R$ {client.debito}</td>
                         <td style={{color: paintScore(client.score)}}>{client.score}</td>
@@ -100,12 +143,19 @@ export default function Clientes() {
                 ))}
                 </tbody>
             </table>
-            <button className="add-button" onClick={() => setModalIsOpen(true)}><FaPlus/></button>
+            <button className="add-button" onClick={() => setCreateModalIsOpen(true)}><FaPlus/></button>
             <NewClientModal
-                isOpen={modalIsOpen}
-                onClose={() => setModalIsOpen(false)}
-                onSave={handleSubmit}
-                />
+                isOpen={createModalIsOpen}
+                onClose={() => setCreateModalIsOpen(false)}
+                onSave={handleClientCreation}
+            />
+            <EditClientModal
+                isOpen={editModalIsOpen}
+                onClose={() => setEditModalIsOpen(false)}
+                onSave={handleClientEdit}
+                client={selectedClient}
+                onDelete={handleClientDeletion}
+            />
         </div>
     )
 }

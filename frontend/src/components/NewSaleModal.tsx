@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { format, } from 'date-fns';
 import Modal from 'react-modal';
-import './Modals.css';
+import './NewClientModal.css';
 
 // define the NewSaleModal component to represent the modal
 export default  function NewSaleModal(props: any) {
