@@ -21,10 +21,9 @@ export default function EditClientModal(props: {
         return null
     }
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        const {name, value} = e.target
-        setUpdatedClient({...updatedClient, [name]: value})
-    }
+    const handleChange = (property: string, value: string | number) => {
+        setUpdatedClient({...updatedClient, [property]: value});
+    };
 
     return (
         <Modal className="modal"
@@ -40,7 +39,7 @@ export default function EditClientModal(props: {
                         type="text"
                         placeholder="Nome"
                         value={updatedClient.nome}
-                        onChange={(e) => setUpdatedClient({...updatedClient, nome: e.target.value})}
+                        onChange={(e) => handleChange("nome", e.target.value)}
                     />
                 </div>
                 <div className="div2">
@@ -49,7 +48,7 @@ export default function EditClientModal(props: {
                         type="text"
                         placeholder="Sobrenome"
                         value={updatedClient.sobrenome}
-                        onChange={(e) => setUpdatedClient({...updatedClient, sobrenome: e.target.value})}
+                        onChange={(e) => handleChange("sobrenome", e.target.value)}
                     />
                 </div>
                 <div className="div3">
@@ -58,7 +57,7 @@ export default function EditClientModal(props: {
                         type="text"
                         placeholder="Apelido"
                         value={updatedClient.apelido}
-                        onChange={(e) => setUpdatedClient({...updatedClient, apelido: e.target.value})}
+                        onChange={(e) => handleChange("apelido", e.target.value)}
                     />
                 </div>
                 <div className="div4">
@@ -67,7 +66,7 @@ export default function EditClientModal(props: {
                         type="text"
                         placeholder="Telefone"
                         value={updatedClient.telefone}
-                        onChange={(e) => setUpdatedClient({...updatedClient, telefone: e.target.value})}
+                        onChange={(e) => handleChange("cpf", e.target.value)}
                     />
                 </div>
                 <div className="div5">
@@ -76,7 +75,7 @@ export default function EditClientModal(props: {
                         type="text"
                         placeholder="Endereço"
                         value={updatedClient.endereco}
-                        onChange={(e) => setUpdatedClient({...updatedClient, endereco: e.target.value})}
+                        onChange={(e) => handleChange("nome", e.target.value)}
                     />
                 </div>
                 <div className="div6">
@@ -85,7 +84,7 @@ export default function EditClientModal(props: {
                         type="text"
                         placeholder="Email"
                         value={updatedClient.email}
-                        onChange={(e) => setUpdatedClient({...updatedClient, email: e.target.value})}
+                        onChange={(e) => handleChange("email", e.target.value)}
                     />
                 </div>
                 <div className="div7">
@@ -94,16 +93,17 @@ export default function EditClientModal(props: {
                         type="text"
                         placeholder="CPF"
                         value={updatedClient.cpf}
-                        onChange={(e) => setUpdatedClient({...updatedClient, cpf: e.target.value})}
+                        onChange={(e) => handleChange("cpf", e.target.value)}
                     />
                 </div>
                 <div className="div8">
                     <label>Débito</label>
                     <input
                         type="number"
+                        disabled={true}
                         placeholder="Débito"
                         value={updatedClient.debito}
-                        onChange={(e) => setUpdatedClient({...updatedClient, debito: Number(e.target.value)})}
+                        onChange={(e) => handleChange("debito", e.target.value)}
                     />
                 </div>
                 <div className="div9">

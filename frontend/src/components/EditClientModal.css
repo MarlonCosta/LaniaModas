@@ -22,6 +22,10 @@
     padding: 1rem;
 }
 
+input [disabled="true"] {
+    background-color: #DEBDDF;
+}
+
 input {
     padding: 0;
     background-color: #FF7EC9;
