@@ -22,7 +22,7 @@ body {
 
 .content {
   position: fixed;
-  top: 0px;
+  top: 0;
   margin-left: 90px;
   padding-right: 20px;
   overflow: auto;
@@ -44,14 +44,14 @@ body {
 }
 
 input:first-of-type {
-  margin-left: 0px;
+  margin-left: 0;
 }
 
 
 .search {
   width: 600px;
   border-radius: var(--border-radius);
-  margin-left: 0px;
+  margin-left: 0;
 }
 
 .search:focus {

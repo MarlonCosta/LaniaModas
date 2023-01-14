@@ -1,28 +1,16 @@
-import { Link } from 'react-router-dom';
+
+import Alertas from "./homepage/Alertas";
 
 const Home = () => (
-  <div>
-    <Link to="/alerts">
-      <div className="block" style={{color: 'white'}}>
-        Alerts
-      </div>
-    </Link>
-    <Link to="/daily-balance">
-      <div className="block">
-        Daily Financial Balance
-      </div>
-    </Link>
-    <Link to="/customer-spotlight">
-      <div className="block">
-        Customer Spotlight
-      </div>
-    </Link>
-    <Link to="/monthly-balance">
-      <div className="block">
-        Monthly Financial Balance
-      </div>
-    </Link>
-  </div>
+    <div className="content">
+        <h1>Home</h1>
+        <div className="alerts-board">
+            <div className="alerts-board-title">
+                <h2>Alertas</h2>
+                <Alertas/>
+            </div>
+        </div>
+    </div>
 );
 
 export default Home;

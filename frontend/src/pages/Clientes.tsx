@@ -59,7 +59,7 @@ export default function Clientes() {
         setSearch(e.target.value)
     }
 
-    const handleClientEdit = (client: Cliente) => {
+    const handleClientUpdate = (client: Cliente) => {
         axios.put(apiUrl + client.id + '/', client)
             .then(response => {
                 const updatedClients = [...clients];
@@ -79,7 +79,6 @@ export default function Clientes() {
     }
 
     const handleTableRowClick = (client: Cliente) => {
-        console.log("clicked on client with id: ", client);
         if (client) {
             setSelectedClient(client);
             setEditModalIsOpen(true);
@@ -91,28 +90,6 @@ export default function Clientes() {
             || client.sobrenome.toLowerCase().includes(search.toLowerCase())
             || client.apelido.toLowerCase().includes(search.toLowerCase())
     })
-
-    function paintScore(score: number): string {
-        if (score >= 70) {
-            return "green"
-        } else if (score >= 50) {
-            return "yellow"
-        } else {
-            return "red"
-        }
-    }
-
-    function paintLastPayment(lastPayment: Date, debt: number): string {
-        const today = new Date()
-        const difference = today.getTime() - lastPayment.getTime()
-        const days = difference / (1000 * 3600 * 24)
-
-        if (debt >= 100 && days >= 90) {
-            return "red"
-        } else {
-            return "black"
-        }
-    }
 
     return (
         <div className="content">
@@ -136,9 +113,9 @@ export default function Clientes() {
                     <tr key={client.id} onClick={() => handleTableRowClick(client)}>
                         <td>{client.nome} {client.sobrenome} ({client.apelido})</td>
                         <td>R$ {client.debito}</td>
-                        <td style={{color: paintScore(client.score)}}>{client.score}</td>
+                        <td >{client.score}</td>
                         <td>{client.ultimaCompra}</td>
-                        <td style={{color: paintLastPayment(new Date(client.ultimoPagamento), client.debito)}}>{client.ultimoPagamento}</td>
+                        <td>{client.ultimoPagamento}</td>
                     </tr>
                 ))}
                 </tbody>
@@ -152,7 +129,7 @@ export default function Clientes() {
             <EditClientModal
                 isOpen={editModalIsOpen}
                 onClose={() => setEditModalIsOpen(false)}
-                onSave={handleClientEdit}
+                onSave={handleClientUpdate}
                 client={selectedClient}
                 onDelete={handleClientDeletion}
             />

@@ -17,10 +17,11 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 
-from clientes import views
+from backend import views
 
 router = routers.DefaultRouter()
 router.register(r'clientes', views.ClienteView)
+router.register(r'produtos', views.ProdutoView)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
