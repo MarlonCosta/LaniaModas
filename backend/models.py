@@ -1,3 +1,4 @@
+import datetime
 from decimal import Decimal
 
 from django.db import models
@@ -114,4 +115,50 @@ class EventoFinanceiro(models.Model):
     def concluir_venda(self):
         self.valor_total = self.calcular_valor_total()
         self.cliente.debito += self.calcular_debito()
+        self.save()
+
+
+def calcular_fechamento_caixa():
+    return sum([evento.valor for evento in
+                EventoCaixa.objects.filter(tipo_evento='ABERTURA', data_hora__day=datetime.date.today())]) + \
+           sum([evento.valor for evento in
+                EventoCaixa.objects.filter(tipo_evento='REFORCO', data_hora__day=datetime.date.today())]) - \
+           sum([evento.valor for evento in
+                EventoCaixa.objects.filter(tipo_evento='SANGRIA', data_hora__day=datetime.date.today())])
+
+
+class EventoCaixa(models.Model):
+    TIPO_EVENTO_CAIXA = (
+        ('ABERTURA', 'Abertura'),
+        ('FECHAMENTO', 'Fechamento'),
+        ('SANGRIA', 'Sangria'),
+        ('REFORCO', 'Reforço'),
+    )
+
+    id: int = models.AutoField(primary_key=True)
+    valor: Decimal = models.DecimalField(default=0.00, max_digits=10, decimal_places=2, null=False)
+    data_hora = models.DateTimeField(auto_now_add=True, null=False)
+    tipo_evento = models.CharField(max_length=30, null=False, choices=TIPO_EVENTO_CAIXA)
+
+    def __str__(self):
+        return f"{self.valor} - {self.data_hora} - {self.tipo_evento}"
+
+    def abrir_caixa(self, valor):
+        self.tipo_evento = 'ABERTURA'
+        self.valor = valor
+        self.save()
+
+    def fechar_caixa(self):
+        self.tipo_evento = 'FECHAMENTO'
+        self.valor = calcular_fechamento_caixa()
+        self.save()
+
+    def sangria(self, valor):
+        self.tipo_evento = 'SANGRIA'
+        self.valor = valor
+        self.save()
+
+    def reforco(self, valor):
+        self.tipo_evento = 'REFORCO'
+        self.valor = valor
         self.save()
