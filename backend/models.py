@@ -100,7 +100,7 @@ class EventoFinanceiro(models.Model):
     valor_pago: Decimal = models.DecimalField(default=0.00, max_digits=10, decimal_places=2, null=False)
     valor_total: Decimal = models.DecimalField(default=0.00, max_digits=10, decimal_places=2, null=False)
     data_hora = models.DateTimeField(auto_now_add=True, null=False)
-    produtos_vendidos = models.ManyToManyField(ProdutoVendido, related_name='produtos_vendidos', null=True)
+    produtos_vendidos = models.ManyToManyField(ProdutoVendido, related_name='produtos_vendidos', blank=True)
     tipo_evento = models.CharField(max_length=30, null=False, choices=TIPO_EVENTO_FINANCEIRO)
 
     def __str__(self):

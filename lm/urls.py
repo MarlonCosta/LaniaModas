@@ -22,6 +22,7 @@ from backend import views
 router = routers.DefaultRouter()
 router.register(r'clientes', views.ClienteView)
 router.register(r'produtos', views.ProdutoView)
+router.register(r'caixa', views.EventoCaixaView, basename='caixa')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
