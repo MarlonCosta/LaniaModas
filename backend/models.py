@@ -124,7 +124,9 @@ def calcular_fechamento_caixa():
            sum([evento.valor for evento in
                 EventoCaixa.objects.filter(tipo_evento='REFORCO', data_hora__day=datetime.date.today())]) - \
            sum([evento.valor for evento in
-                EventoCaixa.objects.filter(tipo_evento='SANGRIA', data_hora__day=datetime.date.today())])
+                EventoCaixa.objects.filter(tipo_evento='SANGRIA', data_hora__day=datetime.date.today())]) + \
+           sum([venda.valor for venda in
+                EventoFinanceiro.objects.filter(tipo_evento='VENDA', data_hora__day=datetime.date.today())])
 
 
 class EventoCaixa(models.Model):
