@@ -2,6 +2,7 @@ import React from 'react';
 import Table from './Table';
 import OperationButton from './OperationButton';
 import {FaHandHoldingUsd, FaShoppingCart} from "react-icons/all";
+import './ClientCard.css';
 
 const ClientCard = () => {
     const headers = ['Data e hora', 'Valor', 'Tipo', 'Pagamento'];

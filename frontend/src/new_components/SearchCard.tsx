@@ -1,6 +1,7 @@
 import 'react'
+import './SearchCard.css'
 
-export default function SearchPage() {
+export default function SearchCard() {
     return (
         <div className="search-page">
             <div className="search-bar">

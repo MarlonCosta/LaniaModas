@@ -1,4 +1,5 @@
 import React from 'react';
+import './Table.css';
 
 const Table = ({headers = [], rows = []}: { headers: string[], rows: any[] }) => {
     console.log(headers, rows)

@@ -12,7 +12,8 @@ import Home from "./pages/Home";
 import ClientCard from "./new_components/ClientCard";
 import Vendas from "./pages/Vendas";
 import Produtos from "./pages/Produtos";
-import SearchPage from "./new_components/SearchPage";
+import SearchCard from "./new_components/SearchCard";
+import ClientsPage from "./new_components/ClientsPage";
 
 const AppLayout = () => (
     <>
@@ -28,11 +29,11 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "/",
-                element: <SearchPage/>,
+                element: <ClientsPage/>,
             },
             {
                 path: "/clientes",
-                element: <Clientes/>,
+                element: <ClientCard/>,
             },
             {
                 path: "/vendas",

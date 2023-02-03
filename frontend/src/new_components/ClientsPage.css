@@ -1,0 +1,14 @@
+.client-page {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.client-page .search-page {
+    width: 45%;
+}
+
+.client-page .client-card {
+    width: 50%;
+}
