@@ -1,37 +1,82 @@
 import React from 'react';
-import Table from './Table';
 import OperationButton from './OperationButton';
 import {FaHandHoldingUsd, FaShoppingCart} from "react-icons/all";
 import './ClientCard.css';
+import './Table.css';
 
-const ClientCard = () => {
-    const headers = ['Data e hora', 'Valor', 'Tipo', 'Pagamento'];
-    const rows = [
-        {row: ['22/01/2023 - 16:30', 100.0.toFixed(2), "Pagamento", "Crédito"], index: 1},
-        {row: ['23/01/2023 - 11:22', 250.0.toFixed(2), "Venda", "Anotado"], index: 2},
-    ];
+export interface Client {
+    id: number;
+    firstName: string;
+    lastName: string;
+    nickname: string;
+    address: string;
+    city: string;
+    phone: string;
+    instagram: string;
+    debt: number;
+    transactions: Transaction[];
+}
 
+interface Transaction {
+    id: number;
+    type: 'payment' | 'order';
+    amount: number;
+    date: string;
+    paymentMethod: string;
+}
+
+const ClientCard: React.FC<Client> = ({
+                                          id,
+                                          firstName,
+                                          lastName,
+                                          nickname,
+                                          address,
+                                          city,
+                                          phone,
+                                          instagram,
+                                          debt,
+                                          transactions
+                                      }) => {
     return (
         <div className="client-card">
             <div className="client-card-info">
-                <h1>Fulana de Tal (Apelido)</h1>
+                <h1>{firstName} {lastName} ({nickname})</h1>
                 <div className="client-card-info-row">
-                    <p>Rua dos bobos, 0</p>
-                    <p>Telefone: (00) 00000-0000</p>
+                    <p>{address}</p>
+                    <p>{phone}</p>
                 </div>
                 <div className="client-card-info-row">
 
-                    <p>Congo - PB</p>
-                    <p>@fufu_lana</p>
+                    <p>{city}</p>
+                    <p>{instagram}</p>
                 </div>
                 <div className="client-card-info-row">
                     <p className="saldo-devedor">
-                        Saldo devedor: R$ 0,00
+                        Saldo devedor: R$ {debt.toFixed(2)}
                     </p>
                 </div>
             </div>
 
-            <Table headers={headers} rows={rows}/>
+            <table>
+                <thead>
+                <tr>
+                    <th>Data e Hora</th>
+                    <th>Valor</th>
+                    <th>Tipo</th>
+                    <th>Pagamento</th>
+                </tr>
+                </thead>
+                <tbody>
+                {transactions.map(transaction => (
+                    <tr key={transaction.id}>
+                        <td>{transaction.date}</td>
+                        <td>{transaction.amount.toFixed(2)}</td>
+                        <td>{transaction.type}</td>
+                        <td>{transaction.paymentMethod}</td>
+                    </tr>
+                ))}
+                </tbody>
+            </table>
 
             <div className="buttons-row">
                 <OperationButton icon={<FaHandHoldingUsd/>} text={"Novo pagamento"} onClick={() => console.log("hi")}

@@ -1,12 +1,11 @@
 .client-page {
+    width: 100vw;
     display: flex;
-    flex-direction: row;
     justify-content: flex-end;
-    align-items: center;
 }
 
 .client-page .search-page {
-    width: 45%;
+    width: 40%;
 }
 
 .client-page .client-card {

@@ -4,7 +4,6 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
-    width: 100vw;
     background-color: #d9d9d9;
 }
 
@@ -47,4 +46,8 @@
 .search-tile:hover {
     background-color: #FF7EC9;
     cursor: pointer;
+}
+
+.selected {
+    background-color: #FF7EC9;
 }
