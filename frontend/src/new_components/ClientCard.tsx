@@ -6,14 +6,14 @@ import './Table.css';
 
 export interface Client {
     id: number;
-    firstName: string;
-    lastName: string;
-    nickname: string;
-    address: string;
-    city: string;
-    phone: string;
+    nome: string;
+    sobrenome: string;
+    apelido: string;
+    endereco: string;
+    cidade: string;
+    telefone: string;
     instagram: string;
-    debt: number;
+    debito: number;
     transactions: Transaction[];
 }
 
@@ -27,32 +27,32 @@ interface Transaction {
 
 const ClientCard: React.FC<Client> = ({
                                           id,
-                                          firstName,
-                                          lastName,
-                                          nickname,
-                                          address,
-                                          city,
-                                          phone,
+                                          nome,
+                                          sobrenome,
+                                          apelido,
+                                          endereco,
+                                          cidade,
+                                          telefone,
                                           instagram,
-                                          debt,
+                                          debito,
                                           transactions
                                       }) => {
     return (
         <div className="client-card">
             <div className="client-card-info">
-                <h1>{firstName} {lastName} ({nickname})</h1>
+                <h1>{nome} {sobrenome} ({apelido})</h1>
                 <div className="client-card-info-row">
-                    <p>{address}</p>
-                    <p>{phone}</p>
+                    <p>{endereco}</p>
+                    <p>{telefone}</p>
                 </div>
                 <div className="client-card-info-row">
 
-                    <p>{city}</p>
+                    <p>{cidade}</p>
                     <p>{instagram}</p>
                 </div>
                 <div className="client-card-info-row">
                     <p className="saldo-devedor">
-                        Saldo devedor: R$ {debt.toFixed(2)}
+                        Saldo devedor: R$ {debito}
                     </p>
                 </div>
             </div>
@@ -67,14 +67,18 @@ const ClientCard: React.FC<Client> = ({
                 </tr>
                 </thead>
                 <tbody>
-                {transactions.map(transaction => (
+                {transactions.length > 0 ? transactions.map(transaction => (
                     <tr key={transaction.id}>
                         <td>{transaction.date}</td>
                         <td>{transaction.amount.toFixed(2)}</td>
                         <td>{transaction.type}</td>
                         <td>{transaction.paymentMethod}</td>
                     </tr>
-                ))}
+                )) :
+                    <tr>
+                        <td colSpan={4}>Nenhuma transação encontrada</td>
+                    </tr>
+                }
                 </tbody>
             </table>
 

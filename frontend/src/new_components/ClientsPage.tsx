@@ -5,6 +5,7 @@ import {Client} from "./ClientCard"
 import './ClientsPage.css';
 import './SearchCard.css';
 import React, {useEffect, useState} from "react";
+import axios from "axios";
 
 
 interface ClientListProps {
@@ -20,7 +21,7 @@ const ClientList: React.FC<ClientListProps> = ({clients, selectedClient, onSelec
             {clients.map(client => (
                 <div key={client.id} className={`search-tile ${selectedClient === client ? 'selected' : ''}`}
                      onClick={() => onSelect(client)}>
-                    <p>{client.firstName} {client.lastName} ({client.nickname})</p>
+                    <p>{client.nome} {client.sobrenome} ({client.apelido})</p>
                 </div>
             ))}
         </div>
@@ -28,124 +29,48 @@ const ClientList: React.FC<ClientListProps> = ({clients, selectedClient, onSelec
 }
 
 export default function ClientsPage() {
-    const [clients, setClients] = useState<Client[]>([
-        {
-            id: 1,
-            firstName: "John",
-            lastName: "Doe",
-            nickname: "Johnny",
-            address: "123 Main St, Anytown USA 12345",
-            city: "Anytown",
-            phone: "555-555-1234",
-            instagram: "@johndoe",
-            debt: 0,
-            transactions: [
-                {
-                    id: 1,
-                    type: "order",
-                    amount: 100,
-                    date: "2022-01-01",
-                    paymentMethod: "cash"
-                },
-                {
-                    id: 2,
-                    type: "payment",
-                    amount: 50,
-                    date: "2022-01-02",
-                    paymentMethod: "credit"
-                },
-                {
-                    id: 3,
-                    type: "order",
-                    amount: 200,
-                    date: "2022-01-03",
-                    paymentMethod: "credit"
-                }
-            ]
-        },
-        {
-            id: 2,
-            firstName: "Jane",
-            lastName: "Doe",
-            nickname: "Janie",
-            address: "456 Oak Ave, Anytown USA 12345",
-            city: "Anytown",
-            phone: "555-555-2345",
-            instagram: "@janedoe",
-            debt: 50,
-            transactions: [
-                {
-                    id: 4,
-                    type: "order",
-                    amount: 75,
-                    date: "2022-01-01",
-                    paymentMethod: "credit"
-                },
-                {
-                    id: 5,
-                    type: "payment",
-                    amount: 25,
-                    date: "2022-01-03",
-                    paymentMethod: "cash"
-                }
-            ]
-        },
-        {
-            id: 3,
-            firstName: "Bob",
-            lastName: "Smith",
-            nickname: "Bobby",
-            address: "789 Pine St, Anytown USA 12345",
-            city: "Anytown",
-            phone: "555-555-3456",
-            instagram: "@bobsmith",
-            debt: 100,
-            transactions: [
-                {
-                    id: 6,
-                    type: "order",
-                    amount: 125,
-                    date: "2022-01-01",
-                    paymentMethod: "cash"
-                },
-                {
-                    id: 7,
-                    type: "payment",
-                    amount: 75,
-                    date: "2022-01-02",
-                    paymentMethod: "credit"
-                }
-            ]
-        }
-    ]);
+    const apiUrl = "http://127.0.0.1:8000/api/clientes/";
+    const [clients, setClients] = useState<Client[]>([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedClient, setSelectedClient] = useState<Client | null>(null);
     const [filteredClients, setFilteredClients] = useState<Client[]>([]);
 
+    // fetch the clients from the API and update the client list when the page loads for the first time
+    useEffect(() => {
+        axios.get(apiUrl)
+            .then(response => {
+                setClients(response.data);
+                setFilteredClients(response.data);
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    }, []);
+
+    // update the filtered clients when the search term changes
     useEffect(() => {
         handleSearch(searchTerm)
     }, [searchTerm]);
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchTerm(event.target.value);
-    };
 
-
+// filter the clients based on the search term
     const handleSearch = (searchTerm: string) => {
         setFilteredClients(
             clients.filter(
                 client =>
-                    client.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                    client.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                    client.nickname.toLowerCase().includes(searchTerm.toLowerCase())
+                    client.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    client.sobrenome.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    client.apelido.toLowerCase().includes(searchTerm.toLowerCase())
             )
         );
     };
 
+// update the selected client when a client is selected
     const handleClientSelect = (client: Client) => {
         setSelectedClient(client);
     };
 
+// update the search term when the search bar is changed
     const handleSearchTermChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(event.target.value);
     };
@@ -154,26 +79,25 @@ export default function ClientsPage() {
         <div className="client-page">
             <div className="search-page">
                 <div className="search-bar">
-                    <input type="text" value={searchTerm} onChange={handleChange}/>
+                    <input type="text" value={searchTerm} onChange={handleSearchTermChange}/>
                 </div>
                 <ClientList clients={filteredClients} selectedClient={selectedClient} onSelect={handleClientSelect}/>
             </div>
             {selectedClient ? (<ClientCard
                 id={selectedClient.id}
-                firstName={selectedClient.firstName}
-                lastName={selectedClient.lastName}
-                nickname={selectedClient.nickname}
-                address={selectedClient.address}
-                city={selectedClient.city}
-                phone={selectedClient.phone}
+                nome={selectedClient.nome}
+                sobrenome={selectedClient.sobrenome}
+                apelido={selectedClient.apelido}
+                endereco={selectedClient.endereco}
+                cidade={selectedClient.cidade}
+                telefone={selectedClient.telefone}
                 instagram={selectedClient.instagram}
-                debt={selectedClient.debt}
-                transactions={selectedClient.transactions}/>) : (
-                <div className="client-card">
-                    <p>No client selected</p>
+                debito={selectedClient.debito}
+                transactions={selectedClient.transactions ? selectedClient.transactions : []}/>) : (
+                <div className="client-card empty">
+                    <p>Sem cliente selecionado</p>
                 </div>
             )}
-
         </div>
     )
 }

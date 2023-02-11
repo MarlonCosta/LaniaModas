@@ -11,3 +11,12 @@
 .client-page .client-card {
     width: 50%;
 }
+
+
+.empty {
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
