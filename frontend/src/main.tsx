@@ -11,7 +11,7 @@ import Clientes from "./pages/Clientes";
 import Home from "./pages/Home";
 import ClientCard from "./new_components/ClientCard";
 import Vendas from "./pages/Vendas";
-import Produtos from "./pages/Produtos";
+import ProductsPage from "./new_components/ProductsPage";
 import ClientsPage from "./new_components/ClientsPage";
 
 const AppLayout = () => (
@@ -40,7 +40,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/produtos",
-                element: <Produtos/>,
+                element: <ProductsPage/>,
             }
         ],
     },

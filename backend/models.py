@@ -43,17 +43,6 @@ class Produto(models.Model):
         ('OUTROS', 'Outros'),
     )
 
-    TAMANHOS = (
-        ('PP', 'PP'),
-        ('P', 'P'),
-        ('M', 'M'),
-        ('G', 'G'),
-        ('GG', 'GG'),
-        ('XG', 'XG'),
-        ('XXG', 'XXG'),
-        ('UNICO', 'Único'),
-    )
-
     GENERO = (
         ('MASCULINO', 'Masculino'),
         ('FEMININO', 'Feminino'),
@@ -67,7 +56,7 @@ class Produto(models.Model):
                                           error_messages={'unique': "Código de barras já cadastrado"})
     descricao: str = models.CharField(max_length=30, null=False)
     cor: str = models.CharField(max_length=30, null=False)
-    tamanho: str = models.CharField(max_length=5, choices=TAMANHOS, null=False)
+    tamanho: str = models.CharField(max_length=5, null=False)
     categoria: str = models.CharField(max_length=30, null=False, choices=CATEGORIAS)
     preco_venda: Decimal = models.DecimalField(default=0.00, max_digits=10, decimal_places=2, null=False)
     preco_custo: Decimal = models.DecimalField(default=0.00, max_digits=10, decimal_places=2, null=False)

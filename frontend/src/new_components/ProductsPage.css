@@ -1,0 +1,56 @@
+.filter {
+    border-radius: 10px;
+    background-color: white;
+    border: none;
+    color: #B257A0;
+}
+
+.search-filters {
+    width: 95%;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    height: 1rem;
+    margin-top: 1rem;
+    margin-bottom: .5rem;
+}
+
+.search-filters .search-bar {
+    margin: 0 .5rem 0  0 ;
+}
+
+
+.filters {
+    display: flex;
+    flex-direction: row;
+    gap: .3rem;
+    height: 2rem;
+}
+
+.filter:hover {
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.tamanho {
+    margin: 0;
+}
+
+.tamanho input {
+    color: #B257A0;
+    margin: 0;
+    gap: .3rem;
+    width: 5rem;
+    background-color: white;
+    border-radius: 10px;
+    padding: .3rem;
+}
+
+.product-page {
+    height: 100vh;
+    width: 95%;
+    background-color: #FF7EC9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
